@@ -54,11 +54,10 @@
 	 (bugmac-modify bug)))
     map))
 
-
-(defcustom bugmac-config-filename "~/.emacs.d/bugmac.cf"
-  "The location of bugmac configuration file"
-  :group 'bugmac-general)
-
+(defvar bugmac-last-buffer 
+  ;; the last bugmac buffer to have focus
+  nil)
+  
 
 (defun bugmac-pkg (alist)
   (let ((tbl (make-hash-table :test 'equal)))
