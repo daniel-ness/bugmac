@@ -90,10 +90,13 @@
   (let ((buffer-name (concat "* bugmac - " url " *")))
     (get-buffer-create buffer-name)
     (switch-to-buffer buffer-name)
-    (setq buffer-read-only t)
-    (setq bugmac-bugzilla-url (concat url "/xmlrpc.cgi"))
-    (setq bugmac-bugzilla-user user)
-    (setq bugmac-bugzilla-password password)
+    (setq buffer-read-only t
+	  major-mode 'bugmac-mode
+	  mode-name "bugmac"
+	  mode-line-process ""
+	  bugmac-bugzilla-url (concat url "/xmlrpc.cgi")
+	  bugmac-bugzilla-user user
+	  bugmac-bugzilla-password password)
     (make-local-variable 'bugmac-bugzilla-url)
     (make-local-variable 'bugmac-bugzilla-user)
     (make-local-variable 'bugmac-bugzilla-password)
