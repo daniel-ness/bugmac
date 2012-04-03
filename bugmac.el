@@ -41,6 +41,9 @@
   "Bug summary in header line"
   :group 'bugmac-faces)
 
+(defcustom bugmac-config-filename "~/.emacs.d/bugmac.cf"
+  "The location of bugmac configuration file"
+  :group 'bugmac-general)
 
 (defvar bugmac-bug-map
   (let ((map (make-keymap)))
