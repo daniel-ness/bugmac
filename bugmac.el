@@ -267,22 +267,27 @@
 	    (o nil))
 
 	(insert-button 
-	 (concat (number-to-string (gethash 'id bug)) "\t" (gethash 'assigned_to bug) "\n")
+	 (concat 
+	  (number-to-string (gethash 'id bug)) "\t" 
+	  (gethash 'summary bug) "\t"
+	  (gethash 'assigned_to bug) 
+	  "\n")
 	 'id (gethash 'id bug)
+	 'follow-link t
 	 'action '(lambda (btn)
 		    (interactive)
 		    (let ((inhibit-read-only t))
-		      (if (button-get btn 'open)
+		      (if (button-get btn 'is-open)
 			  (progn
 			    (delete-region (button-get btn 'start) (button-get btn 'stop))
-			    (button-put btn 'open nil))
+			    (button-put btn 'is-open nil))
 			(progn 
 			  (vertical-motion 1)
 			  (save-excursion
 			    (button-put btn 'start (point))
 			    (bugmac-get-bug (button-get btn 'id))
 			    (button-put btn 'stop (point))
-			    (button-put btn 'open t)))))))))
+			    (button-put btn 'is-open t)))))))))
     (align (beginning-of-buffer) (end-of-buffer) " ")))
 
 
