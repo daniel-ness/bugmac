@@ -313,6 +313,40 @@
     (ini-decode (buffer-string))))
 
 
+
+(defun bugmac-get-products ()
+  " Get a list of products for this server "
+  (let* ((ids (cdr (assoc "ids" (bugmac-call 'Product.get_accessible_products))))
+	 (response (bugmac-call 'Product.get `(("ids" . ,ids)))))
+    (cdr (assoc "products" response))))
+
+
+
+(defun bugmac-select-product ()
+  " Display a list of products for this server "
+  (interactive)
+  (setq bugmac-previous-buffer (current-buffer))
+  (let ((products (bugmac-get-products)))
+    (select-window (minibuffer-window))
+    (let ((enable-recursive-minibuffers nil)
+	  (inhibit-read-only t))
+      (delete-minibuffer-contents)
+      (insert "Product: ")
+      (dolist (p products)
+	(insert-button
+	 (format "%s" (cdr (assoc "name" p)))
+	 'id (cdr (assoc "id" p))
+	 'info p
+	 'action (lambda (btn)
+		   (let ((inhibit-read-only t)
+			 (name (button-label btn)))
+		     (delete-minibuffer-contents)
+		     (pop-to-buffer bugmac-previous-buffer)
+		     (bugmac-search `(("product" . ,name))))))
+	(insert "  ")))))
+
+
+
 (defun bugmac-select-server ()
   (interactive)
   (select-window (minibuffer-window))
