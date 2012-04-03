@@ -250,7 +250,8 @@
 (defun bugmac-mybugs ()
   "Get a list of bugs assigned to/reported by user"
   (interactive)
-  (bugmac-search `(("assigned_to" . ,bugmac-bugzilla-user) ("reporter" . ,bugmac-bugzilla-user))))
+  (bugmac-search `(("assigned_to" . ,bugmac-bugzilla-user) 
+		   ("reporter" . ,bugmac-bugzilla-user))))
 
 
 
